@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (C) 2023, Tencent. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -80,7 +80,7 @@ void PS_ElasticMaxHeapOp::doit() {
     log_info(emh)("PS_ElasticMaxHeapOp abort: no size change");
     return;
   }
-  
+
   // fix with young gen size limitation
   size_t new_young_limit = policy->scale_by_NewRatio_aligned(_new_max_heap);
   new_young_limit = MIN2(new_young_limit, young_reserved_size);
@@ -124,7 +124,7 @@ void PS_ElasticMaxHeapOp::doit() {
                 (new_young_limit / K),
                 (cur_old_limit / K),
                 (new_old_limit / K));
-  
+
   if (is_shrink) {
     guarantee(new_old_limit <= cur_old_limit && new_young_limit <= cur_young_limit, "must be");
   } else {
@@ -134,7 +134,7 @@ void PS_ElasticMaxHeapOp::doit() {
   // step2
   // check resize legality
   // 1. expand: always legal
-  // 2. shrink: 
+  // 2. shrink:
   //    young: must be empty after full gc
   //    old: according to PSAdaptiveSizePolicy::calculated_old_free_size_in_bytes
   //         (new_old_limit - old_used) >= min_free
@@ -259,7 +259,7 @@ void Gen_ElasticMaxHeapOp::doit() {
   } else {
     const uintx parallel_gc_threads = (ParallelGCThreads == 0 ? 1 : ParallelGCThreads);
     size_t young_gen_per_worker = CMSYoungGenPerWorker;
-    size_t preferred_max_new_size_unaligned = MIN2((size_t)(_new_max_heap / (NewRatio + 1)), 
+    size_t preferred_max_new_size_unaligned = MIN2((size_t)(_new_max_heap / (NewRatio + 1)),
                                                     ScaleForWordSize(young_gen_per_worker * parallel_gc_threads));
     new_young_limit = align_up<size_t, size_t>(preferred_max_new_size_unaligned, gen_alignment);
     log_info(emh)("Gen_ElasticMaxHeapOp calculate new young limit with fixed CMSYoungGenPerWorker and NewRatio");
@@ -313,7 +313,7 @@ void Gen_ElasticMaxHeapOp::doit() {
                 (new_young_limit / K),
                 (cur_old_limit / K),
                 (new_old_limit / K));
-  
+
   // step 2: trigger fullGC and resize.
   if (is_shrink) {
     if (new_young_limit < young->capacity() || new_old_limit < old->capacity()) {
@@ -373,8 +373,8 @@ void Gen_ElasticMaxHeapOp::doit() {
 /*
  * No need to calculate young/old size, shrink will adjust young automatically.
  * ensure young_list_length, _young_list_max_length, _young_list_target_length align.
- * 
- * 1. calculate minimum heap size by used size 
+ *
+ * 1. calculate minimum heap size by used size
  * (TODO: check if skip full gc: new_heap_max >= minimum_desired_capacity)
  * 2. perform full GC if necessary; resize in post gc
  * 3. update new limit
@@ -389,7 +389,7 @@ void G1_ElasticMaxHeapOp::doit() {
   // step 1: calculate minimum heap size by used size
   const double minimum_free_percentage = (double) MinHeapFreeRatio / 100.0;
   const double maximum_used_percentage = 1.0 - minimum_free_percentage;
-  
+
   // step 2: trigger GC as needed and resize
   if (is_shrink) {
     bool trigger_full_gc = false;
