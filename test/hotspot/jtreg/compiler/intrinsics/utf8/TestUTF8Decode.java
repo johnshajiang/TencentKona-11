@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (C) 2023, Tencent. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -44,7 +44,7 @@
  * @run main/othervm -XX:+IgnoreUnrecognizedVMOptions -XX:UseAVX=2 -XX:TieredStopAtLevel=1 -Xcomp -XX:CompileCommand=compileonly,*::decodeArrayLoop TestUTF8Decode prefix2
  * @summary test pass and failure case for UTF8 decoder
  */
- 
+
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (C) 2023, Tencent. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -59,7 +59,7 @@ class G1_ElasticMaxHeapOp : public VM_ElasticMaxHeapOp {
 	public:
 		G1_ElasticMaxHeapOp(size_t new_max_heap);
 		virtual void doit();
-		bool g1_can_shrink(size_t _new_max_heap, 
+		bool g1_can_shrink(size_t _new_max_heap,
 					       double maximum_used_percentage,
                        	   size_t max_heap_size);
     	void g1_shrink_without_full_gc(size_t _new_max_heap);
