@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (c) 2023, Tencent. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -40,7 +40,7 @@ public class TestExitOnDirectOutOfMemoryError {
     public static void main(String[] args) throws Exception {
         if (args.length == 1) {
             // This should guarantee to throw:
-            // java.lang.OutOfMemoryError: Cannot reserve 2147483647 bytes of direct buffer memory 
+            // java.lang.OutOfMemoryError: Cannot reserve 2147483647 bytes of direct buffer memory
             try {
                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(Integer.MAX_VALUE);
             } catch (OutOfMemoryError err) {
@@ -55,7 +55,7 @@ public class TestExitOnDirectOutOfMemoryError {
 
         /*
          * Actual output should look like this:
-         * Terminating due to java.lang.OutOfMemoryError: Cannot reserve 2147483647 bytes of direct buffer memory 
+         * Terminating due to java.lang.OutOfMemoryError: Cannot reserve 2147483647 bytes of direct buffer memory
          */
         output.shouldHaveExitValue(3);
         output.stdoutShouldNotBeEmpty();
